@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pomodoro Timer</title>
+		<link rel="stylesheet" href="styles/style.css" />
+		<link rel="stylesheet" href="styles/button.css" />
+		<link rel="stylesheet" href="styles/nav.css" />
+		<link rel="stylesheet" href="styles/settings.css" />
+		<script type="module" src="controller.js"></script>
+	</head>
+	<body>
+		<div class="settings">
+			<header class="settings-header">
+				<h2>Setting</h2>
+				<button class="close-btn">
+					<img class="close-btn" src="img/remove-black-sm.png" />
+				</button>
+			</header>
+			<h3>Time (minutes)</h3>
+			<p class="settings-pomodoro-label">Pomodoro</p>
+			<p class="settings-shortBreak-label">Short Break</p>
+			<p class="settings-longBreak-label">Long Break</p>
+			<input type="number" min="0" step="1" class="pomodoro-input input" value="" />
+			<input type="number" min="0" step="1" class="shortBreak-input input" value="" />
+			<input type="number" min="0" step="1" class="longBreak-input input" value="" />
+		</div>
+		<header>
+			<nav>
+				<div class="logo">
+					<img class="pomo-icon" src="img/icon-white2.png" />
+
+					<h1 class="pomofocus-title">Pomofocus</h1>
+				</div>
+				<div class="buttons">
+					<button>
+						<img class="nav-buttons" src="img/graph-white.png" />
+						<p>Report</p></button
+					><button>
+						<img class="nav-buttons" src="img/config-white.png" />
+						<p>Setting</p></button
+					><button>
+						<img class="nav-buttons" src="img/user-white.png" />
+						<p>Login</p>
+					</button>
+				</div>
+			</nav>
+		</header>
+		<main class="container">
+			<div class="app-window">
+				<div class="buttons types">
+					<button class="pomodoro types">Pomodoro</button>
+					<button class="short-break types">Short Break</button>
+					<button class="long-break types">Long Break</button>
+				</div>
+				<time class="timer">25:00</time>
+				<button data-state="start" class="start-stop">START</button>
+			</div>
+			<div class="app-info">
+				<p class="counter">#1</p>
+				<p class="message">Time to Focus!</p>
+			</div>
+		</main>
+	</body>
+</html>

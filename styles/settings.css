@@ -1,0 +1,31 @@
+@import "global.css";
+
+.settings {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 35rem;
+	padding: 1rem;
+	color: rgb(77, 77, 77);
+
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+
+	/* display: none; */
+}
+
+header.settings-header {
+	display: flex;
+	justify-content: space-between;
+	gap: 50%;
+	margin-bottom: 2rem;
+	border-bottom: solid 0.1rem rgb(218, 218, 218);
+	padding-bottom: 1rem;
+}
+
+img.close-btn {
+	height: 1.4rem;
+	width: 1.4rem;
+}
