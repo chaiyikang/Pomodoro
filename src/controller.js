@@ -1,5 +1,6 @@
 import TimerView from "./view.js";
 import * as model from "./model.js";
+import settingsView from "./settingsView.js";
 let activeInterval;
 
 function controlStartStop(trueForStart) {
@@ -36,10 +37,15 @@ function controlPomodoro(type) {
 	TimerView.updateMessage(type);
 }
 
+function controlSettings() {
+	console.log("control settings");
+}
+
 function init() {
 	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
+	settingsView.addHandlerSettings(controlSettings);
 }
 
 init();

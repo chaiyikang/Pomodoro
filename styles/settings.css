@@ -14,9 +14,9 @@
 	box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
 
-.settings {
-	/* display: none; */
-}
+/* .settings {
+	display: none;
+} */
 
 header.settings-header {
 	display: flex;
