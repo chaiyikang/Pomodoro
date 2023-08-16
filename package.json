@@ -1,0 +1,20 @@
+{
+	"name": "pomodoro-timer",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/controller.js",
+	"scripts": {
+		"start": "parcel index.html",
+		"build": "parcel build index.html --dist-dir ./dist"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/chaiyikang/Pomodoro.git"
+	},
+	"author": "cyk",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/chaiyikang/Pomodoro/issues"
+	},
+	"homepage": "https://github.com/chaiyikang/Pomodoro#readme"
+}
