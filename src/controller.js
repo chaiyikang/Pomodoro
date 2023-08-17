@@ -45,6 +45,8 @@ function init() {
 	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
+	TimerView.addHandlerSettingsModal();
+	settingsView.addHandlerCloseSettingsModal();
 	settingsView.addHandlerSettings(controlSettings);
 }
 

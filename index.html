@@ -11,7 +11,7 @@
 		<script type="module" src="src/controller.js"></script>
 	</head>
 	<body>
-		<div class="settings">
+		<div class="settings hidden">
 			<header class="settings-header">
 				<h2>Setting</h2>
 				<button class="close-btn">
@@ -88,6 +88,7 @@
 				</footer>
 			</form>
 		</div>
+		<div class="overlay hidden"></div>
 		<header>
 			<nav>
 				<div class="logo">
@@ -99,7 +100,7 @@
 					<button>
 						<img class="nav-buttons" src="img/graph-white.png" />
 						<span>Report</span></button
-					><button>
+					><button class="open-settings">
 						<img class="nav-buttons" src="img/config-white.png" />
 						<span>Setting</span></button
 					><button>

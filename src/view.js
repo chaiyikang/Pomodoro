@@ -1,10 +1,25 @@
 class TimerView {
+	settingsBtn = document.querySelector(".open-settings");
+	settingsDiv = document.querySelector(".settings");
+	overlay = document.querySelector(".overlay");
 	timeDisplay = document.querySelector(".timer");
 	startStopButton = document.querySelector(".start-stop");
 	pomodoroButton = document.querySelector(".pomodoro");
 	shortBreakButton = document.querySelector(".short-break");
 	longBreakButton = document.querySelector(".long-break");
 	messageEle = document.querySelector(".message");
+
+	addHandlerSettingsModal(handler) {
+		function settingsHandler(event) {
+			this._settingsDiv.classList.remove("hidden");
+			this._overlay.classList.remove("hidden");
+		}
+
+		this.settingsBtn.addEventListener(
+			"click",
+			settingsHandler.bind({ _settingsDiv: this.settingsDiv, _overlay: this.overlay })
+		);
+	}
 
 	addHandlerStartStop(handler) {
 		this.startStopButton.addEventListener("click", (event) => {
