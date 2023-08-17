@@ -80,9 +80,9 @@ input.time-input {
 	height: 3rem;
 }
 
-p.auto-start-breaks,
-p.auto-start-pomodoro,
-p.long-break-interval {
+span.auto-start-breaks,
+span.auto-start-pomodoro,
+span.long-break-interval {
 	font-weight: bold;
 }
 

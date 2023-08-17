@@ -37,8 +37,8 @@ function controlPomodoro(type) {
 	TimerView.updateMessage(type);
 }
 
-function controlSettings() {
-	console.log("control settings");
+function controlSettings(formData) {
+	console.log(formData);
 }
 
 function init() {

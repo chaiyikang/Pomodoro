@@ -21,39 +21,73 @@
 			<h1 class="timer-label">TIMER</h1>
 			<h3>Time (minutes)</h3>
 			<form class="settings-form">
-			<div class="time-settings-grid">
-			<p class="settings-pomodoro-label settings-label">Pomodoro</p>
-			<p class="settings-shortBreak-label settings-label">Short Break</p>
-			<p class="settings-longBreak-label settings-label">Long Break</p>
-			<input type="number" min="0" step="1" class="pomodoro-input time-input" value="" />
-			<input type="number" min="0" step="1" class="shortBreak-input time-input" value="" />
-			<input type="number" min="0" step="1" class="longBreak-input time-input" value="" />
-			</div>
-			<div class="settings-toggle">
-				<div class="toggle-auto-breaks toggle-auto">
-					<p class="auto-start-breaks">Auto Start Breaks</p>
-					<!-- <button class="toggle start-breaks"> -->
-							<input class="toggle start-breaks" type="checkbox">
-						<!-- </button> -->
+				<div class="time-settings-grid">
+					<p class="settings-pomodoro-label settings-label">Pomodoro</p>
+					<p class="settings-shortBreak-label settings-label">Short Break</p>
+					<p class="settings-longBreak-label settings-label">Long Break</p>
+					<input
+						type="number"
+						name="pomodoroInput"
+						min="0"
+						step="1"
+						class="pomodoro-input time-input"
+						value=""
+					/>
+					<input
+						type="number"
+						name="shortBreakInput"
+						min="0"
+						step="1"
+						class="shortBreak-input time-input"
+						value=""
+					/>
+					<input
+						type="number"
+						name="longBreakInput"
+						min="0"
+						step="1"
+						class="longBreak-input time-input"
+						value=""
+					/>
 				</div>
-				<div class="toggle-auto-pomodoro toggle-auto">
-						<p class="auto-start-pomodoro">Auto Start Pomodoros</p>
-						<!-- <button class="toggle start-pomodoro"> -->
-								<input class="toggle start-pomodoro" type="checkbox">
-							<!-- </button> -->
+				<div class="settings-toggle">
+					<div class="toggle-auto-breaks toggle-auto">
+						<span class="auto-start-breaks">Auto Start Breaks</span>
+						<!-- <button class="toggle start-breaks"> -->
+						<input
+							name="toggleStartBreaks"
+							class="toggle start-breaks"
+							type="checkbox"
+						/>
+						<!-- </button> -->
 					</div>
-			</div>
-			<div class="settings-interval">
-				<p class="long-break-interval">Long Break Interval</p>
-				<input type="number" min="0" step="1" class="long-break-interval" value="" />
-			</div>
-			<footer class="settings-footer">
-				<button class="ok-settings">
-					OK
-				</button>
-			</footer>
+					<div class="toggle-auto-pomodoro toggle-auto">
+						<span class="auto-start-pomodoro">Auto Start Pomodoros</span>
+						<!-- <button class="toggle start-pomodoro"> -->
+						<input
+							name="toggleStartPomodoro"
+							class="toggle start-pomodoro"
+							type="checkbox"
+						/>
+						<!-- </button> -->
+					</div>
+				</div>
+				<div class="settings-interval">
+					<span class="long-break-interval">Long Break Interval</span>
+					<input
+						name="longBreakInterval"
+						type="number"
+						min="0"
+						step="1"
+						class="long-break-interval"
+						value=""
+					/>
+				</div>
+				<footer class="settings-footer">
+					<button class="ok-settings">OK</button>
+				</footer>
+			</form>
 		</div>
-	</form>
 		<header>
 			<nav>
 				<div class="logo">
@@ -64,13 +98,13 @@
 				<div class="buttons">
 					<button>
 						<img class="nav-buttons" src="img/graph-white.png" />
-						<p>Report</p></button
+						<span>Report</span></button
 					><button>
 						<img class="nav-buttons" src="img/config-white.png" />
-						<p>Setting</p></button
+						<span>Setting</span></button
 					><button>
 						<img class="nav-buttons" src="img/user-white.png" />
-						<p>Login</p>
+						<span>Login</span>
 					</button>
 				</div>
 			</nav>
