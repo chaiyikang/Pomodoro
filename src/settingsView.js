@@ -13,7 +13,7 @@ class SettingsView {
 		const handler = closeModal.bind({ settingsDiv: this.settingsDiv, overlay: this.overlay });
 
 		this.overlay.addEventListener("click", handler);
-		this.settingsDiv.addEventListener("click", handler);
+		this.closeBtn.addEventListener("click", handler);
 	}
 
 	addHandlerSettings(handler) {
