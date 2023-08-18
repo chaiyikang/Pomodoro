@@ -1,3 +1,4 @@
+import helper from "./helpers.js";
 class TimerView {
 	settingsBtn = document.querySelector(".open-settings");
 	settingsDiv = document.querySelector(".settings");
@@ -11,13 +12,17 @@ class TimerView {
 
 	addHandlerSettingsModal(handler) {
 		function settingsHandler(event) {
+			helper.initSettingsValues();
 			this._settingsDiv.classList.remove("hidden");
 			this._overlay.classList.remove("hidden");
 		}
 
 		this.settingsBtn.addEventListener(
 			"click",
-			settingsHandler.bind({ _settingsDiv: this.settingsDiv, _overlay: this.overlay })
+			settingsHandler.bind({
+				_settingsDiv: this.settingsDiv,
+				_overlay: this.overlay,
+			})
 		);
 	}
 

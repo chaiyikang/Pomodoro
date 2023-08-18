@@ -3,10 +3,20 @@ import * as model from "./model.js";
 import settingsView from "./settingsView.js";
 let activeInterval;
 
+const report = document.querySelector(".report-btn");
+report.addEventListener("click", () => {
+	console.log(model.state.durationLeftSec);
+});
+
+function clearIntervalSetFalse() {
+	clearInterval(activeInterval);
+	activeInterval = false;
+}
+
 function controlStartStop(trueForStart) {
 	if (!trueForStart) {
 		//stop
-		clearInterval(activeInterval);
+		clearIntervalSetFalse();
 		return;
 	}
 
@@ -20,25 +30,52 @@ function controlStartStop(trueForStart) {
 
 		model.state.durationLeftSec = timeLeftSec;
 
-		TimerView.updateTimeDisplay(timeLeftSec);
-
-		if (timeLeftSec <= 0) clearInterva(activeInterval);
+		TimerView.updateTimeDisplay(model.state.durationLeftSec);
+		if (timeLeftSec <= 0) clearIntervalSetFalse();
 		//TODO: handle when timer finishes
 	}, 1000);
 }
 
 function controlPomodoro(type) {
-	clearInterval(activeInterval);
-	model.state.durationLeftSec = model.state[`${type}LengthSec`];
-	TimerView.updateActiveButton(type);
+	clearIntervalSetFalse();
+	model.updateActiveTypeResetDurationLeft(type);
+	TimerView.updateActiveButton(model.state.activeType);
 	TimerView.changeButtonStart();
-	TimerView.updateTimeDisplay(model.state[`${type}LengthSec`]);
+	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 	TimerView.updateBackgroundColor(type);
 	TimerView.updateMessage(type);
 }
 
 function controlSettings(formData) {
 	console.log(formData);
+	const timeElapsed = model.state.elapsed;
+	const noRunningNoPausedTimer =
+		!activeInterval && model.state.durationLeftSec === model.state.activeLength;
+
+	model.updateLengths(formData.pomodoroInput, formData.shortBreakInput, formData.longBreakInput);
+
+	if (noRunningNoPausedTimer) {
+		// alert("noRunningNoPausedTimer");
+		controlPomodoro(model.state.activeType);
+		return;
+	}
+
+	const noRunningPausedTimer = !activeInterval;
+	if (noRunningPausedTimer) {
+		// alert("noRunningPausedTimer");
+		model.state.durationLeftSec = model.state.activeLength - timeElapsed;
+		TimerView.updateTimeDisplay(model.state.durationLeftSec);
+		return;
+	}
+
+	if (activeInterval) {
+		model.state.durationLeftSec = model.state.activeLength - timeElapsed;
+		controlStartStop(false);
+		controlStartStop(true);
+		return;
+	}
+
+	alert("Something went wrong");
 }
 
 function init() {
@@ -46,7 +83,7 @@ function init() {
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
 	TimerView.addHandlerSettingsModal();
-	TimerView.updateActiveButton("pomodoro");
+	controlPomodoro("pomodoro");
 	settingsView.addHandlerCloseSettingsModal();
 	settingsView.addHandlerSettings(controlSettings);
 }
