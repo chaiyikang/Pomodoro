@@ -9,7 +9,6 @@ class SettingsView {
 			this.overlay.classList.add("hidden");
 			this.settingsDiv.classList.add("hidden");
 		}
-
 		const handler = closeModal.bind({ settingsDiv: this.settingsDiv, overlay: this.overlay });
 
 		this.overlay.addEventListener("click", handler);

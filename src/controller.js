@@ -46,6 +46,7 @@ function init() {
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
 	TimerView.addHandlerSettingsModal();
+	TimerView.updateActiveButton("pomodoro");
 	settingsView.addHandlerCloseSettingsModal();
 	settingsView.addHandlerSettings(controlSettings);
 }
