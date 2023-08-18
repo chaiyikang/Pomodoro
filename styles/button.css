@@ -1,42 +1,45 @@
 @import "./global.css";
 
 button:hover {
-  cursor: pointer;
-}
-
-button:active {
-  transform: translateY(0.25rem);
-  /* transition: transform 0.2s ease-in-out; */
+	cursor: pointer;
 }
 
 button {
-  font-family: ArialRounded;
-  font-weight: bold;
-  color: white;
-  border: none;
-  /* background-color: rgb(186, 73, 73); */
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: 0.4rem;
+	font-family: ArialRounded;
+	font-weight: bold;
+	color: white;
+	border: none;
+	/* background-color: rgb(186, 73, 73); */
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 0.4rem;
 }
 
 button.types {
-  font-size: 1.6rem;
-  padding: 0.7rem;
+	font-size: 1.6rem;
+	padding: 0.7rem;
 }
 
 button.start-stop {
-  grid-row: 3 / 4;
-  grid-column: 1 / 4;
-  justify-self: center;
-  font-size: 2.2rem;
-  box-shadow: rgb(235, 235, 235) 0 6px 0;
-  background-color: white;
-  color: rgb(186, 73, 73);
-  padding: 1rem 7rem;
-  align-self: center;
-  transition: color 0.5s ease-in-out;
+	grid-row: 3 / 4;
+	grid-column: 1 / 4;
+	justify-self: center;
+	font-size: 2.2rem;
+	box-shadow: rgb(235, 235, 235) 0 0.6rem 0;
+	background-color: white;
+	color: rgb(186, 73, 73);
+	padding: 1.5rem 7rem;
+	align-self: center;
+	transition: color 0.5s ease-in-out;
+	width: 25rem;
+}
+button:active,
+button[data-state="stop"] {
+	transform: translateY(0.25rem);
+	box-shadow: none;
+	margin-top: 0.85rem;
+	/* transition: transform 0.2s ease-in-out; */
 }
 
 .button-active {
-  background-color: rgba(0, 0, 0, 0.15);
+	background-color: rgba(0, 0, 0, 0.15);
 }
