@@ -56,7 +56,7 @@ class TimerView {
 
 	changeButtonStop() {
 		this.startStopButton.dataset.state = "stop";
-		this.startStopButton.textContent = "STOP";
+		this.startStopButton.textContent = "PAUSE";
 	}
 
 	changeButtonStart() {

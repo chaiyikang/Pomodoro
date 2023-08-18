@@ -32,12 +32,16 @@ button.start-stop {
 	transition: color 0.5s ease-in-out;
 	width: 25rem;
 }
-button:active,
-button[data-state="stop"] {
+
+button:active {
+	transform: translateY(0.25rem);
+}
+
+button[data-state="stop"],
+button.start-stop:active {
 	transform: translateY(0.25rem);
 	box-shadow: none;
 	margin-top: 0.85rem;
-	/* transition: transform 0.2s ease-in-out; */
 }
 
 .button-active {
