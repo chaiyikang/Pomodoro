@@ -8,32 +8,33 @@ export const state = {
 	longBreakInterval: 4,
 	cycleTracker: {
 		activeType: "pomodoro",
-		totalReps: 0,
+		totalRepsDone: 0,
 		get currentSet() {
-			return this.totalReps === 0 ? 1 : Math.ceil(this.totalReps / 4);
+			return this.totalRepsDone === 0 ? 1 : Math.ceil(this.totalRepsDone / 4);
 		},
-		get currentRep() {
-			return (this.totalReps + 1) % 4 === 0 ? 4 : this.totalReps % 4;
+		get currentRepToDo() {
+			return (this.totalRepsDone + 1) % 4 === 0 ? 4 : (this.totalRepsDone + 1) % 4;
 		},
 	},
 
 	updateCycleTracker() {
-		if (this.cycleTracker.activeType === "pomodoro") {
+		if (this.cycleTracker.activeType !== "pomodoro") {
 			return;
 		}
-		this.cycleTracker.totalReps++;
-		console.log(`total reps: ${this.cycleTracker.totalReps}`);
+		this.cycleTracker.totalRepsDone++;
+		console.log(`total reps done: ${this.cycleTracker.totalRepsDone}`);
 		console.log(`current set: ${this.cycleTracker.currentSet}`);
+		console.log(`current rep to do: ${this.cycleTracker.currentRepToDo}`);
 	},
 
 	get nextType() {
 		if (this.cycleTracker.activeType !== "pomodoro") {
 			return "pomodoro";
 		}
-		if (this.cycleTracker.currentRep < this.longBreakInterval) {
-			return "shortBreak";
+		if (this.cycleTracker.currentRepToDo === 1) {
+			return "longBreak";
 		}
-		return "longBreak";
+		return "shortBreak";
 	},
 
 	get activeLength() {
