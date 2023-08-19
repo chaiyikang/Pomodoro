@@ -1,20 +1,24 @@
 export const state = {
-	pomodoroLengthSec: 1,
-	durationLeftSec: 1,
-	shortBreakLengthSec: 1,
-	longBreakLengthSec: 1,
-	toggleStartBreaks: true,
-	toggleStartPomodoro: true,
+	pomodoroLengthSec: 0.1 * 60,
+	durationLeftSec: 0.1 * 60,
+	shortBreakLengthSec: 0.1 * 60,
+	longBreakLengthSec: 0.1 * 60,
+	toggleStartBreaks: false,
+	toggleStartPomodoro: false,
 	longBreakInterval: 4,
 	cycleTracker: {
 		activeType: "pomodoro",
 		totalRepsDone: 0,
-		get currentSet() {
-			return this.totalRepsDone === 0 ? 1 : Math.ceil(this.totalRepsDone / 4);
-		},
-		get currentRepToDo() {
-			return (this.totalRepsDone + 1) % 4 === 0 ? 4 : (this.totalRepsDone + 1) % 4;
-		},
+	},
+	get currentSet() {
+		return this.cycleTracker.totalRepsDone === 0
+			? 1
+			: Math.ceil(this.cycleTracker.totalRepsDone / this.longBreakInterval);
+	},
+	get currentRepToDo() {
+		return (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval === 0
+			? this.longBreakInterval
+			: (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval;
 	},
 
 	updateCycleTracker() {
@@ -23,15 +27,15 @@ export const state = {
 		}
 		this.cycleTracker.totalRepsDone++;
 		console.log(`total reps done: ${this.cycleTracker.totalRepsDone}`);
-		console.log(`current set: ${this.cycleTracker.currentSet}`);
-		console.log(`current rep to do: ${this.cycleTracker.currentRepToDo}`);
+		console.log(`current set: ${this.currentSet}`);
+		console.log(`current rep to do: ${this.currentRepToDo}`);
 	},
 
 	get nextType() {
 		if (this.cycleTracker.activeType !== "pomodoro") {
 			return "pomodoro";
 		}
-		if (this.cycleTracker.currentRepToDo === 1) {
+		if (this.currentRepToDo === 1) {
 			return "longBreak";
 		}
 		return "shortBreak";
@@ -51,10 +55,20 @@ export function updateActiveTypeResetDurationLeft(type) {
 	state.durationLeftSec = state[`${state.cycleTracker.activeType}LengthSec`];
 }
 
-export function updateLengths(pomodoroLength, shortBreakLength, longBreakLength) {
-	state.pomodoroLengthSec = pomodoroLength * 60;
-	state.shortBreakLengthSec = shortBreakLength * 60;
-	state.longBreakLengthSec = longBreakLength * 60;
+export function updateSettings({
+	pomodoroInput,
+	shortBreakInput,
+	longBreakInput,
+	toggleStartBreaks = false,
+	toggleStartPomodoro = false,
+	longBreakInterval,
+}) {
+	state.pomodoroLengthSec = +pomodoroInput * 60;
+	state.shortBreakLengthSec = +shortBreakInput * 60;
+	state.longBreakLengthSec = +longBreakInput * 60;
+	state.toggleStartBreaks = toggleStartBreaks && true;
+	state.toggleStartPomodoro = toggleStartPomodoro && true;
+	state.longBreakInterval = +longBreakInterval;
 }
 
 function init() {

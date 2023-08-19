@@ -26,6 +26,10 @@ class TimerView {
 		);
 	}
 
+	clickStartStop() {
+		this.startStopButton.click();
+	}
+
 	addHandlerStartStop(handler) {
 		this.startStopButton.addEventListener("click", (event) => {
 			if (this.startStopButton.dataset.state === "stop") {

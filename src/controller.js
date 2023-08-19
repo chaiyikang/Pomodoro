@@ -37,6 +37,16 @@ function controlStartStop(trueForStart) {
 		clearIntervalSetFalse();
 		model.state.updateCycleTracker();
 		controlPomodoro(model.state.nextType);
+
+		const autoPomodoro =
+			model.state.cycleTracker.activeType === "pomodoro" && model.state.toggleStartPomodoro;
+		if (autoPomodoro) TimerView.clickStartStop();
+
+		const autoBreaks =
+			(model.state.cycleTracker.activeType === "shortBreak" ||
+				model.state.cycleTracker.activeType === "longBreak") &&
+			model.state.toggleStartBreaks;
+		if (autoBreaks) TimerView.clickStartStop();
 	}, 1000);
 }
 
@@ -55,7 +65,7 @@ function controlSettings(formData) {
 	const noRunningNoPausedTimer =
 		!activeInterval && model.state.durationLeftSec === model.state.activeLength;
 
-	model.updateLengths(formData.pomodoroInput, formData.shortBreakInput, formData.longBreakInput);
+	model.updateSettings(formData);
 
 	if (noRunningNoPausedTimer) {
 		// alert("noRunningNoPausedTimer");
