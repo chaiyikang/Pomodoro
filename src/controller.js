@@ -84,8 +84,8 @@ function init() {
 	TimerView.addHandlerTypes(controlPomodoro);
 	TimerView.addHandlerSettingsModal();
 	controlPomodoro("pomodoro");
-	settingsView.addHandlerCloseSettingsModal();
-	settingsView.addHandlerSettings(controlSettings);
+	// settingsView.addHandlerCloseSettingsModal();
+	settingsView.addHandlerSettingsForm(controlSettings);
 }
 
 init();

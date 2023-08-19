@@ -4,23 +4,35 @@ class SettingsView {
 	overlay = document.querySelector(".overlay");
 	closeBtn = document.querySelector(".close-btn");
 
-	addHandlerCloseSettingsModal() {
-		function closeModal(event) {
+	// addHandlerCloseSettingsModal() {
+	// 	function closeModal(event) {
+	// 		this.overlay.classList.add("hidden");
+	// 		this.settingsDiv.classList.add("hidden");
+	// 	}
+	// 	const handler = closeModal.bind({ settingsDiv: this.settingsDiv, overlay: this.overlay });
+
+	// 	this.overlay.addEventListener("click", handler);
+	// 	this.closeBtn.addEventListener("click", handler);
+	// }
+
+	addHandlerSettingsForm(controlSettings) {
+		function abstractedHandler(event) {
+			event.preventDefault();
+			const formData = Object.fromEntries([...new FormData(this.settingsForm)]);
+			controlSettings(formData);
 			this.overlay.classList.add("hidden");
 			this.settingsDiv.classList.add("hidden");
 		}
-		const handler = closeModal.bind({ settingsDiv: this.settingsDiv, overlay: this.overlay });
 
-		this.overlay.addEventListener("click", handler);
-		this.closeBtn.addEventListener("click", handler);
-	}
+		this.settingsForm.addEventListener("submit", abstractedHandler.bind(this));
+		this.overlay.addEventListener("click", abstractedHandler.bind(this));
+		this.closeBtn.addEventListener("click", abstractedHandler.bind(this));
 
-	addHandlerSettings(handler) {
-		this.settingsForm.addEventListener("submit", function (event) {
-			event.preventDefault();
-			const formData = Object.fromEntries([...new FormData(this)]);
-			handler(formData);
-		});
+		// this.settingsForm.addEventListener("submit", function (event) {
+		// 	event.preventDefault();
+		// 	const formData = Object.fromEntries([...new FormData(this)]);
+		// 	controlSettings(formData);
+		// });
 	}
 }
 
