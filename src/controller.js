@@ -36,6 +36,7 @@ function controlStartStop(trueForStart) {
 		}
 		clearIntervalSetFalse();
 		controlPomodoro(model.state.nextType);
+		model.state.updateCycleTracker();
 	}, 1000);
 }
 

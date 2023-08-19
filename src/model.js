@@ -1,29 +1,39 @@
 export const state = {
-	pomodoroLengthSec: 25 * 60,
-	durationLeftSec: 25 * 60,
-	shortBreakLengthSec: 5 * 60,
-	longBreakLengthSec: 15 * 60,
+	pomodoroLengthSec: 1,
+	durationLeftSec: 1,
+	shortBreakLengthSec: 1,
+	longBreakLengthSec: 1,
 	toggleStartBreaks: true,
 	toggleStartPomodoro: true,
 	longBreakInterval: 4,
 	cycleTracker: {
 		activeType: "pomodoro",
-		cycle: 1,
-		work: 1,
+		totalReps: 0,
+		get currentSet() {
+			return this.totalReps === 0 ? 1 : Math.ceil(this.totalReps / 4);
+		},
+		get currentRep() {
+			return (this.totalReps + 1) % 4 === 0 ? 4 : this.totalReps % 4;
+		},
+	},
+
+	updateCycleTracker() {
+		if (this.cycleTracker.activeType === "pomodoro") {
+			return;
+		}
+		this.cycleTracker.totalReps++;
+		console.log(`total reps: ${this.cycleTracker.totalReps}`);
+		console.log(`current set: ${this.cycleTracker.currentSet}`);
 	},
 
 	get nextType() {
-		if (
-			state.cycleTracker.activeType === "pomodoro" &&
-			state.cycleTracker.cycle < state.longBreakInterval
-		) {
+		if (this.cycleTracker.activeType !== "pomodoro") {
+			return "pomodoro";
+		}
+		if (this.cycleTracker.currentRep < this.longBreakInterval) {
 			return "shortBreak";
-		} else if (
-			state.cycleTracker.activeType === "pomodoro" &&
-			state.cycleTracker.cycle === state.longBreakInterval
-		) {
-			return "longBreak";
-		} else return "pomodoro";
+		}
+		return "longBreak";
 	},
 
 	get activeLength() {
