@@ -31,15 +31,18 @@ function controlStartStop(trueForStart) {
 		model.state.durationLeftSec = timeLeftSec;
 
 		TimerView.updateTimeDisplay(model.state.durationLeftSec);
-		if (timeLeftSec <= 0) clearIntervalSetFalse();
-		//TODO: handle when timer finishes
+		if (timeLeftSec > 0) {
+			return;
+		}
+		clearIntervalSetFalse();
+		controlPomodoro(model.state.nextType);
 	}, 1000);
 }
 
 function controlPomodoro(type) {
 	clearIntervalSetFalse();
 	model.updateActiveTypeResetDurationLeft(type);
-	TimerView.updateActiveButton(model.state.activeType);
+	TimerView.updateActiveButton(model.state.cycleTracker.activeType);
 	TimerView.changeButtonStart();
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 	TimerView.updateBackgroundColor(type);
@@ -47,7 +50,6 @@ function controlPomodoro(type) {
 }
 
 function controlSettings(formData) {
-	console.log(formData);
 	const timeElapsed = model.state.elapsed;
 	const noRunningNoPausedTimer =
 		!activeInterval && model.state.durationLeftSec === model.state.activeLength;
@@ -56,7 +58,7 @@ function controlSettings(formData) {
 
 	if (noRunningNoPausedTimer) {
 		// alert("noRunningNoPausedTimer");
-		controlPomodoro(model.state.activeType);
+		controlPomodoro(model.state.cycleTracker.activeType);
 		return;
 	}
 

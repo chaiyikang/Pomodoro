@@ -19,6 +19,7 @@ class SettingsView {
 		function abstractedHandler(event) {
 			event.preventDefault();
 			const formData = Object.fromEntries([...new FormData(this.settingsForm)]);
+			console.log(formData);
 			controlSettings(formData);
 			this.overlay.classList.add("hidden");
 			this.settingsDiv.classList.add("hidden");
