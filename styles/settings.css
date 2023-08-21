@@ -5,7 +5,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 35rem;
+	width: 40rem;
 	padding: 2rem;
 	color: rgb(77, 77, 77);
 
@@ -15,9 +15,32 @@
 	z-index: 10;
 }
 
-/* .settings {
-	display: none;
-} */
+h3.time-minutes {
+	font-size: 1.4rem;
+	margin-bottom: 1.5rem;
+}
+
+h2.settings-title {
+	color: grey;
+}
+
+div.timer-title {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+}
+
+img.timer-img {
+	height: 1.6rem;
+	width: 1.6rem;
+	opacity: 0.3;
+}
+
+h1.timer-label {
+	display: inline;
+	color: rgb(187, 187, 187);
+	font-size: 1.4rem;
+}
 
 header.settings-header {
 	display: flex;
@@ -31,14 +54,21 @@ header.settings-header {
 img.close-btn {
 	height: 1.4rem;
 	width: 1.4rem;
+	opacity: 0.3;
 }
 
 div.time-settings-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	width: 35rem;
-	grid-column-gap: 4.8rem;
+	width: 100%;
+	grid-column-gap: 5.5rem;
 	justify-items: start;
+	margin-bottom: 2.5rem;
+}
+
+input {
+	font-size: 1.6rem;
+	color: rgb(85, 85, 85);
 }
 
 input.time-input {
@@ -57,12 +87,29 @@ div.settings-interval {
 	margin-bottom: 1rem;
 }
 
+span.sec-settings-label {
+	font-size: 1.6rem;
+}
+
+div.toggle-auto,
+div.settings-interval {
+	margin-bottom: 2rem;
+}
+
 input.long-break-interval-input {
 	width: 5rem;
 }
 
 button.ok-settings {
-	background-color: black;
+	background-color: rgb(34, 34, 34, 0.9);
+	width: 7rem;
+	height: 3.6rem;
+	font-weight: normal;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
+}
+
+button.ok-settings:hover {
+	background-color: rgb(34, 34, 34);
 }
 
 footer.settings-footer {
@@ -73,12 +120,17 @@ footer.settings-footer {
 p.settings-label {
 	font-weight: bold;
 	color: grey;
+	font-size: 1.4rem;
+	color: rgb(187, 187, 187);
+	margin-bottom: 0.4rem;
 }
 
 input.time-input {
 	background-color: rgb(240, 240, 240);
 	border: none;
 	height: 3rem;
+	border-radius: 0.4rem;
+	width: 7.8rem;
 }
 
 span.auto-start-breaks,

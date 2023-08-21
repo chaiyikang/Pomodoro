@@ -55,6 +55,7 @@ export function updateActiveTypeResetDurationLeft(type) {
 	state.durationLeftSec = state[`${state.cycleTracker.activeType}LengthSec`];
 }
 
+// if boxes aren't ticked, omitted from FormData completely
 export function updateSettings({
 	pomodoroInput,
 	shortBreakInput,
