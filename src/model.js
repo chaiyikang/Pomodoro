@@ -21,9 +21,8 @@ export const state = {
 	},
 
 	get currentRepToDo() {
-		return (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval === 0
-			? this.longBreakInterval
-			: (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval;
+		const currRep = (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval;
+		return currRep === 0 ? this.longBreakInterval : currRep;
 	},
 
 	updateCycleTracker() {
@@ -31,9 +30,9 @@ export const state = {
 			return;
 		}
 		this.cycleTracker.totalRepsDone++;
-		console.log(`total reps done: ${this.cycleTracker.totalRepsDone}`);
-		console.log(`current set: ${this.currentSet}`);
-		console.log(`current rep to do: ${this.currentRepToDo}`);
+		// console.log(`total reps done: ${this.cycleTracker.totalRepsDone}`);
+		// console.log(`current set: ${this.currentSet}`);
+		// console.log(`current rep to do: ${this.currentRepToDo}`);
 	},
 
 	get nextType() {
@@ -51,14 +50,14 @@ export const state = {
 	},
 
 	get elapsed() {
-		return this[`${this.cycleTracker.activeType}LengthSec`] - this.durationLeftSec;
+		return this.activeLength - this.durationLeftSec;
+	},
+
+	updateActiveTypeResetDurationLeft(type) {
+		this.cycleTracker.activeType = type;
+		this.durationLeftSec = this.activeLength;
 	},
 };
-
-export function updateActiveTypeResetDurationLeft(type) {
-	state.cycleTracker.activeType = type;
-	state.durationLeftSec = state[`${state.cycleTracker.activeType}LengthSec`];
-}
 
 // if boxes aren't ticked, omitted from FormData completely
 export function updateSettings({
@@ -78,7 +77,7 @@ export function updateSettings({
 }
 
 function init() {
-	updateActiveTypeResetDurationLeft("pomodoro");
+	state.updateActiveTypeResetDurationLeft("pomodoro");
 }
 
 init();

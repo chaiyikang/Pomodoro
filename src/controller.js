@@ -56,7 +56,7 @@ function controlTimerEnded() {
 
 function controlPomodoro(type) {
 	clearIntervalSetFalse();
-	model.updateActiveTypeResetDurationLeft(type);
+	model.state.updateActiveTypeResetDurationLeft(type);
 	TimerView.updateActiveButton(model.state.cycleTracker.activeType);
 	TimerView.changeButtonStart();
 	TimerView.updateSkipBtn(activeInterval);
