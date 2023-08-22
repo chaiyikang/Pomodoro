@@ -1,4 +1,5 @@
 import helper from "./helpers.js";
+import { activeInterval } from "./controller.js";
 class TimerView {
 	settingsBtn = document.querySelector(".open-settings");
 	settingsDiv = document.querySelector(".settings");
@@ -11,6 +12,7 @@ class TimerView {
 	messageEle = document.querySelector(".message");
 	skipBtn = document.querySelector(".skip-timer-btn");
 
+	// event handlers
 	addHandlerSettingsModal(handler) {
 		function settingsHandler(event) {
 			helper.initSettingsValues();
@@ -26,36 +28,21 @@ class TimerView {
 			})
 		);
 	}
-
-	clickStartStop() {
-		this.startStopButton.click();
-	}
-
 	addHandlerStartStop(handler) {
 		this.startStopButton.addEventListener("click", (event) => {
+			// arrow function keeps this referring to object instead of element
 			this.handlerStartStop(handler);
 		});
 	}
-
 	handlerStartStop(handler) {
-		const start = this.startStopButton.dataset.state === "start";
-		if (!start) {
+		if (activeInterval) {
 			this.changeButtonStart();
-			this.updateSkipBtn(false);
 			handler(false);
 		} else {
 			this.changeButtonStop();
-			this.updateSkipBtn(true);
 			handler(true);
 		}
-	}
-
-	updateSkipBtn(activeInterval) {
-		if (activeInterval) {
-			this.skipBtn.classList.remove("hidden");
-			return;
-		}
-		this.skipBtn.classList.add("hidden");
+		this.updateSkipBtn();
 	}
 
 	addHandlerSkip(handler) {
@@ -74,18 +61,17 @@ class TimerView {
 		});
 	}
 
+	// utility methods
+	updateSkipBtn() {
+		if (activeInterval) {
+			this.skipBtn.classList.remove("hidden");
+			return;
+		}
+		this.skipBtn.classList.add("hidden");
+	}
+
 	updateMessage(type) {
 		this.messageEle.textContent = type === "pomodoro" ? "Time to Focus!" : "Time for a break!";
-	}
-
-	changeButtonStop() {
-		this.startStopButton.dataset.state = "stop";
-		this.startStopButton.textContent = "PAUSE";
-	}
-
-	changeButtonStart() {
-		this.startStopButton.dataset.state = "start";
-		this.startStopButton.textContent = "START";
 	}
 
 	updateBackgroundColor(type) {
@@ -114,6 +100,21 @@ class TimerView {
 		let displaySec = sec % 60;
 		this.timeDisplay.innerHTML =
 			`${displayMin}:`.padStart(3, "0") + `${displaySec}`.padStart(2, "0");
+	}
+
+	// helper methods
+	clickStartStop() {
+		this.startStopButton.click();
+	}
+
+	changeButtonStop() {
+		this.startStopButton.dataset.state = "stop";
+		this.startStopButton.textContent = "PAUSE";
+	}
+
+	changeButtonStart() {
+		this.startStopButton.dataset.state = "start";
+		this.startStopButton.textContent = "START";
 	}
 }
 

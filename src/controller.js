@@ -1,17 +1,13 @@
 import TimerView from "./view.js";
 import * as model from "./model.js";
 import settingsView from "./settingsView.js";
-let activeInterval;
 
-const report = document.querySelector(".report-btn");
-report.addEventListener("click", () => {
-	console.log(model.state.durationLeftSec);
-});
+export let activeInterval;
 
-function clearIntervalSetFalse() {
-	clearInterval(activeInterval);
-	activeInterval = false;
-}
+// const report = document.querySelector(".report-btn");
+// report.addEventListener("click", () => {
+// 	console.log(model.state.durationLeftSec);
+// });
 
 function controlStartStop(trueForStart) {
 	if (!trueForStart) {
@@ -25,13 +21,8 @@ function controlStartStop(trueForStart) {
 	const timeStampEnd = timeStampStart + model.state.durationLeftSec * 1000;
 
 	activeInterval = setInterval(() => {
-		let timeStampCurrent = new Date().getTime();
-		let timeLeftSec = Math.round((timeStampEnd - timeStampCurrent) / 1000);
-
-		model.state.durationLeftSec = timeLeftSec;
-
-		TimerView.updateTimeDisplay(model.state.durationLeftSec);
-		if (timeLeftSec > 0) {
+		countDown(timeStampEnd);
+		if (model.state.durationLeftSec > 0) {
 			return;
 		}
 		controlTimerEnded();
@@ -59,7 +50,7 @@ function controlPomodoro(type) {
 	model.state.updateActiveTypeResetDurationLeft(type);
 	TimerView.updateActiveButton(model.state.cycleTracker.activeType);
 	TimerView.changeButtonStart();
-	TimerView.updateSkipBtn(activeInterval);
+	TimerView.updateSkipBtn();
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 	TimerView.updateBackgroundColor(type);
 	TimerView.updateMessage(type);
@@ -73,14 +64,12 @@ function controlSettings(formData) {
 	model.updateSettings(formData);
 
 	if (noRunningNoPausedTimer) {
-		// alert("noRunningNoPausedTimer");
 		controlPomodoro(model.state.cycleTracker.activeType);
 		return;
 	}
 
 	const noRunningPausedTimer = !activeInterval;
 	if (noRunningPausedTimer) {
-		// alert("noRunningPausedTimer");
 		model.state.durationLeftSec = model.state.activeLength - timeElapsed;
 		TimerView.updateTimeDisplay(model.state.durationLeftSec);
 		return;
@@ -92,8 +81,6 @@ function controlSettings(formData) {
 		controlStartStop(true);
 		return;
 	}
-
-	alert("Something went wrong");
 }
 
 function init() {
@@ -108,3 +95,18 @@ function init() {
 }
 
 init();
+
+// helper functions
+function clearIntervalSetFalse() {
+	clearInterval(activeInterval);
+	activeInterval = false;
+}
+
+function countDown(timeStampEnd) {
+	let timeStampCurrent = new Date().getTime();
+	let timeLeftSec = Math.round((timeStampEnd - timeStampCurrent) / 1000);
+
+	model.state.durationLeftSec = timeLeftSec;
+
+	TimerView.updateTimeDisplay(model.state.durationLeftSec);
+}
