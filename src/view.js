@@ -33,14 +33,29 @@ class TimerView {
 
 	addHandlerStartStop(handler) {
 		this.startStopButton.addEventListener("click", (event) => {
-			if (this.startStopButton.dataset.state === "stop") {
-				this.changeButtonStart();
-				handler(false);
-			} else {
-				this.changeButtonStop();
-				handler(true);
-			}
+			this.handlerStartStop(handler);
 		});
+	}
+
+	handlerStartStop(handler) {
+		const start = this.startStopButton.dataset.state === "start";
+		if (!start) {
+			this.changeButtonStart();
+			this.updateSkipBtn(false);
+			handler(false);
+		} else {
+			this.changeButtonStop();
+			this.updateSkipBtn(true);
+			handler(true);
+		}
+	}
+
+	updateSkipBtn(activeInterval) {
+		if (activeInterval) {
+			this.skipBtn.classList.remove("hidden");
+			return;
+		}
+		this.skipBtn.classList.add("hidden");
 	}
 
 	addHandlerSkip(handler) {

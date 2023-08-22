@@ -59,6 +59,7 @@ function controlPomodoro(type) {
 	model.updateActiveTypeResetDurationLeft(type);
 	TimerView.updateActiveButton(model.state.cycleTracker.activeType);
 	TimerView.changeButtonStart();
+	TimerView.updateSkipBtn(activeInterval);
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 	TimerView.updateBackgroundColor(type);
 	TimerView.updateMessage(type);
