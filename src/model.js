@@ -1,20 +1,25 @@
 export const state = {
-	pomodoroLengthSec: 0.1 * 60,
 	durationLeftSec: 0.1 * 60,
+
+	pomodoroLengthSec: 0.1 * 60,
 	shortBreakLengthSec: 0.1 * 60,
 	longBreakLengthSec: 0.1 * 60,
+
 	toggleStartBreaks: false,
 	toggleStartPomodoro: false,
 	longBreakInterval: 4,
+
 	cycleTracker: {
 		activeType: "pomodoro",
 		totalRepsDone: 0,
 	},
+
 	get currentSet() {
 		return this.cycleTracker.totalRepsDone === 0
 			? 1
 			: Math.ceil(this.cycleTracker.totalRepsDone / this.longBreakInterval);
 	},
+
 	get currentRepToDo() {
 		return (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval === 0
 			? this.longBreakInterval
