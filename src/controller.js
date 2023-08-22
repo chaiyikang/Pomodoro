@@ -34,20 +34,24 @@ function controlStartStop(trueForStart) {
 		if (timeLeftSec > 0) {
 			return;
 		}
-		clearIntervalSetFalse();
-		model.state.updateCycleTracker();
-		controlPomodoro(model.state.nextType);
-
-		const autoPomodoro =
-			model.state.cycleTracker.activeType === "pomodoro" && model.state.toggleStartPomodoro;
-		if (autoPomodoro) TimerView.clickStartStop();
-
-		const autoBreaks =
-			(model.state.cycleTracker.activeType === "shortBreak" ||
-				model.state.cycleTracker.activeType === "longBreak") &&
-			model.state.toggleStartBreaks;
-		if (autoBreaks) TimerView.clickStartStop();
+		controlTimerEnded();
 	}, 1000);
+}
+
+function controlTimerEnded() {
+	clearIntervalSetFalse();
+	model.state.updateCycleTracker();
+	controlPomodoro(model.state.nextType);
+
+	const autoPomodoro =
+		model.state.cycleTracker.activeType === "pomodoro" && model.state.toggleStartPomodoro;
+	if (autoPomodoro) TimerView.clickStartStop();
+
+	const autoBreaks =
+		(model.state.cycleTracker.activeType === "shortBreak" ||
+			model.state.cycleTracker.activeType === "longBreak") &&
+		model.state.toggleStartBreaks;
+	if (autoBreaks) TimerView.clickStartStop();
 }
 
 function controlPomodoro(type) {
@@ -95,6 +99,7 @@ function init() {
 	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
+	TimerView.addHandlerSkip(controlTimerEnded);
 	TimerView.addHandlerSettingsModal();
 	controlPomodoro("pomodoro");
 	// settingsView.addHandlerCloseSettingsModal();

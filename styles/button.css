@@ -33,6 +33,26 @@ button.start-stop {
 	width: 25rem;
 }
 
+button.skip-timer-btn {
+	grid-row: 3 / 4;
+	grid-column: 3 / 4;
+	height: 2.2rem;
+	width: 2.2rem;
+	justify-self: center;
+	align-self: center;
+	margin-left: 3.5rem;
+	transition: opacity 0.2s ease-in-out;
+}
+
+button.skip-timer-btn:hover {
+	opacity: 0.5;
+}
+
+img.skip-timer-img {
+	height: 2.2rem;
+	width: 2.2rem;
+}
+
 button:active {
 	transform: translateY(0.25rem);
 }

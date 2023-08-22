@@ -9,6 +9,7 @@ class TimerView {
 	shortBreakButton = document.querySelector(".short-break");
 	longBreakButton = document.querySelector(".long-break");
 	messageEle = document.querySelector(".message");
+	skipBtn = document.querySelector(".skip-timer-btn");
 
 	addHandlerSettingsModal(handler) {
 		function settingsHandler(event) {
@@ -40,6 +41,10 @@ class TimerView {
 				handler(true);
 			}
 		});
+	}
+
+	addHandlerSkip(handler) {
+		this.skipBtn.addEventListener("click", handler);
 	}
 
 	addHandlerTypes(handler) {
