@@ -11,6 +11,7 @@ class TimerView {
 	longBreakButton = document.querySelector(".long-break");
 	messageEle = document.querySelector(".message");
 	skipBtn = document.querySelector(".skip-timer-btn");
+	intervalDisplay = document.querySelector(".counter");
 
 	// event handlers
 	addHandlerSettingsModal(handler) {
@@ -62,6 +63,10 @@ class TimerView {
 	}
 
 	// utility methods
+	updateIntervalDisplay(cycles, reps) {
+		this.intervalDisplay.textContent = `$Cycle: #${cycles} Rep: #${reps}`;
+	}
+
 	updateSkipBtn() {
 		if (activeInterval) {
 			this.skipBtn.classList.remove("hidden");

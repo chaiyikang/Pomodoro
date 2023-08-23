@@ -54,6 +54,7 @@ function controlPomodoro(type) {
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 	TimerView.updateBackgroundColor(type);
 	TimerView.updateMessage(type);
+	TimerView.updateIntervalDisplay(...determineDisplayCycleRep());
 }
 
 function controlSettings(formData) {
@@ -109,4 +110,15 @@ function countDown(timeStampEnd) {
 	model.state.durationLeftSec = timeLeftSec;
 
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
+}
+
+function determineDisplayCycleRep() {
+	if (model.state.cycleTracker.activeType === "pomodoro") {
+		return [model.state.completedSets + 1, model.state.currentRepToDo];
+	}
+	const currRep =
+		model.state.currentRepToDo === 1
+			? model.state.longBreakInterval
+			: model.state.currentRepToDo - 1;
+	return [model.state.completedSets, currRep];
 }

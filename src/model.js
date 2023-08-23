@@ -14,10 +14,8 @@ export const state = {
 		totalRepsDone: 0,
 	},
 
-	get currentSet() {
-		return this.cycleTracker.totalRepsDone === 0
-			? 1
-			: Math.ceil(this.cycleTracker.totalRepsDone / this.longBreakInterval);
+	get completedSets() {
+		return Math.floor(this.cycleTracker.totalRepsDone / this.longBreakInterval);
 	},
 
 	get currentRepToDo() {
