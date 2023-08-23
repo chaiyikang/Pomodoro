@@ -64,7 +64,7 @@ class TimerView {
 
 	// utility methods
 	updateIntervalDisplay(cycles, reps) {
-		this.intervalDisplay.textContent = `$Cycle: #${cycles} Rep: #${reps}`;
+		this.intervalDisplay.textContent = `Cycle: #${cycles} Rep: #${reps}`;
 	}
 
 	updateSkipBtn() {

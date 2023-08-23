@@ -116,9 +116,16 @@ function determineDisplayCycleRep() {
 	if (model.state.cycleTracker.activeType === "pomodoro") {
 		return [model.state.completedSets + 1, model.state.currentRepToDo];
 	}
-	const currRep =
-		model.state.currentRepToDo === 1
-			? model.state.longBreakInterval
-			: model.state.currentRepToDo - 1;
-	return [model.state.completedSets, currRep];
+	if (model.state.cycleTracker.totalRepsDone === 0) return [1, 1];
+
+	let currSet;
+	let currRep;
+	if (model.state.currentRepToDo === 1) {
+		currSet = model.state.completedSets;
+		currRep = model.state.longBreakInterval;
+	} else {
+		currSet = model.state.completedSets + 1;
+		currRep = model.state.currentRepToDo - 1;
+	}
+	return [currSet, currRep];
 }
