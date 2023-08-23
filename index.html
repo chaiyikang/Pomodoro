@@ -8,10 +8,26 @@
 		<link rel="stylesheet" href="styles/button.css" />
 		<link rel="stylesheet" href="styles/nav.css" />
 		<link rel="stylesheet" href="styles/settings.css" />
+		<link rel="stylesheet" href="styles/report.css" />
 		<link rel="stylesheet" href="styles/toggle.css" />
 		<script type="module" src="src/controller.js"></script>
 	</head>
 	<body>
+		<div class="report hidden">
+			<header class="report-header">
+				<h2 class="activity-summary-title">Activity Summary</h2>
+				<button class="report-close-btn">
+					<img class="close-btn report-close" src="img/remove-black-sm.png" />
+				</button>
+			</header>
+			<div class="card">
+				<img class="report-clock" src="img/clock-red.png" />
+				<div class="report-text">
+					<p class="display-hours">0</p>
+					<p class="hours-focused-label">seconds focused</p>
+				</div>
+			</div>
+		</div>
 		<div class="settings hidden">
 			<header class="settings-header">
 				<h2 class="settings-title">Setting</h2>

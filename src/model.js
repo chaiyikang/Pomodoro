@@ -1,4 +1,5 @@
 export const state = {
+	secondsFocused: 0,
 	durationLeftSec: 0.1 * 60,
 
 	pomodoroLengthSec: 0.1 * 60,

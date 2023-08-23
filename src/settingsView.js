@@ -17,6 +17,9 @@ class SettingsView {
 
 	addHandlerSettingsForm(controlSettings) {
 		function abstractedHandler(event) {
+			const otherModalOpen = this.settingsDiv.classList.contains("hidden");
+			if (otherModalOpen) return;
+
 			event.preventDefault();
 			const formData = Object.fromEntries([...new FormData(this.settingsForm)]);
 			// console.log([...new FormData(this.settingsForm)]);

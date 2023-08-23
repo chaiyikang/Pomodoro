@@ -1,4 +1,4 @@
-import helper from "./helpers.js";
+import helper from "./modelToViewHelper.js";
 import { activeInterval } from "./controller.js";
 class TimerView {
 	settingsBtn = document.querySelector(".open-settings");
@@ -12,6 +12,10 @@ class TimerView {
 	messageEle = document.querySelector(".message");
 	skipBtn = document.querySelector(".skip-timer-btn");
 	intervalDisplay = document.querySelector(".counter");
+	reportBtn = document.querySelector(".report-btn");
+	reportDiv = document.querySelector(".report");
+	reportCloseBtn = document.querySelector(".report-close");
+	focusedTimeDisplay = document.querySelector(".display-hours");
 
 	// event handlers
 	addHandlerSettingsModal(handler) {
@@ -29,6 +33,28 @@ class TimerView {
 			})
 		);
 	}
+
+	addHandlerReportModal() {
+		this.reportBtn.addEventListener("click", () => {
+			this.focusedTimeDisplay.textContent = helper.getFocusedSeconds();
+			this.reportDiv.classList.remove("hidden");
+			this.overlay.classList.remove("hidden");
+		});
+	}
+
+	addHandlerCloseReport() {
+		function handler() {
+			const otherModalOpen = this.reportDiv.classList.contains("hidden");
+			if (otherModalOpen) return;
+
+			this.overlay.classList.add("hidden");
+			this.reportDiv.classList.add("hidden");
+		}
+
+		this.overlay.addEventListener("click", handler.bind(this));
+		this.reportCloseBtn.addEventListener("click", handler.bind(this));
+	}
+
 	addHandlerStartStop(handler) {
 		this.startStopButton.addEventListener("click", (event) => {
 			// arrow function keeps this referring to object instead of element

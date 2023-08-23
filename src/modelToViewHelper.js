@@ -6,6 +6,7 @@ class Helper {
 	autoPomodoroInput = document.querySelector(".start-pomodoro");
 	autoBreaksInput = document.querySelector(".start-breaks");
 	longBreakInterval = document.querySelector(".long-break-interval-input");
+	focusedTimeDisplay = document.querySelector(".display-hours");
 
 	initSettingsValues() {
 		this.pomodoroInput.value = model.state.pomodoroLengthSec / 60;
@@ -14,6 +15,10 @@ class Helper {
 		this.autoBreaksInput.checked = model.state.toggleStartBreaks;
 		this.autoPomodoroInput.checked = model.state.toggleStartPomodoro;
 		this.longBreakInterval.value = model.state.longBreakInterval;
+	}
+
+	getFocusedSeconds() {
+		return model.state.secondsFocused;
 	}
 }
 

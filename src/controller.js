@@ -90,8 +90,9 @@ function init() {
 	TimerView.addHandlerTypes(controlPomodoro);
 	TimerView.addHandlerSkip(controlTimerEnded);
 	TimerView.addHandlerSettingsModal();
+	TimerView.addHandlerReportModal();
+	TimerView.addHandlerCloseReport();
 	controlPomodoro("pomodoro");
-	// settingsView.addHandlerCloseSettingsModal();
 	settingsView.addHandlerSettingsForm(controlSettings);
 }
 
@@ -108,6 +109,7 @@ function countDown(timeStampEnd) {
 	let timeLeftSec = Math.round((timeStampEnd - timeStampCurrent) / 1000);
 
 	model.state.durationLeftSec = timeLeftSec;
+	model.state.secondsFocused++;
 
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 }
