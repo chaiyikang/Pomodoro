@@ -16,5 +16,8 @@
 	"bugs": {
 		"url": "https://github.com/chaiyikang/Pomodoro/issues"
 	},
-	"homepage": "https://github.com/chaiyikang/Pomodoro#readme"
+	"homepage": "https://github.com/chaiyikang/Pomodoro#readme",
+	"devDependencies": {
+		"parcel": "^2.9.3"
+	}
 }

@@ -15,6 +15,29 @@
 	z-index: 10;
 }
 
+div.color-themes-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+div.squares {
+	display: flex;
+	gap: 1rem;
+}
+
+h3.color-theme-title {
+	margin-right: 45%;
+}
+
+div.square {
+	height: 2.7rem;
+	width: 2.7rem;
+	background-color: red;
+	border-radius: 0.4rem;
+}
+
 h3.time-minutes {
 	font-size: 1.4rem;
 	margin-bottom: 1.5rem;

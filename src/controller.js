@@ -4,10 +4,9 @@ import settingsView from "./settingsView.js";
 
 export let activeInterval;
 
-// const report = document.querySelector(".report-btn");
-// report.addEventListener("click", () => {
-// 	console.log(model.state.durationLeftSec);
-// });
+// if (module.hot) {
+// 	module.hot.accept();
+// }
 
 function controlStartStop(trueForStart) {
 	if (!trueForStart) {
