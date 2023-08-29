@@ -2,7 +2,7 @@ class SettingsView {
 	settingsForm = document.querySelector(".settings-form");
 	settingsDiv = document.querySelector(".settings");
 	overlay = document.querySelector(".overlay");
-	closeBtn = document.querySelector(".close-btn");
+	closeBtn = document.querySelector(".close-btn-settings");
 
 	// addHandlerCloseSettingsModal() {
 	// 	function closeModal(event) {
