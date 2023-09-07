@@ -16,10 +16,6 @@ class Helper {
 		this.autoPomodoroInput.checked = model.state.toggleStartPomodoro;
 		this.longBreakInterval.value = model.state.longBreakInterval;
 	}
-
-	getFocusedSeconds() {
-		return model.state.secondsFocused;
-	}
 }
 
 export default new Helper();

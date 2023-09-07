@@ -88,8 +88,8 @@ function init() {
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
 	TimerView.addHandlerSkip(controlTimerEnded);
-	TimerView.addHandlerSettingsModal();
-	TimerView.addHandlerReportModal();
+	settingsView.addHandlerSettingsModal(getSettings);
+	TimerView.addHandlerReportModal(() => model.state.secondsFocused);
 	TimerView.addHandlerCloseReport();
 	controlPomodoro("pomodoro");
 	settingsView.addHandlerSettingsForm(controlSettings);
@@ -98,6 +98,10 @@ function init() {
 init();
 
 // helper functions
+function getSettings() {
+	return { ...model.state };
+}
+
 function clearIntervalSetFalse() {
 	clearInterval(activeInterval);
 	activeInterval = false;

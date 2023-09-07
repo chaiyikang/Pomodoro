@@ -3,17 +3,39 @@ class SettingsView {
 	settingsDiv = document.querySelector(".settings");
 	overlay = document.querySelector(".overlay");
 	closeBtn = document.querySelector(".close-btn-settings");
+	settingsBtn = document.querySelector(".open-settings");
+	pomodoroInput = document.querySelector(".pomodoro-input");
+	shortBreakInput = document.querySelector(".shortBreak-input");
+	longBreakInput = document.querySelector(".longBreak-input");
+	autoPomodoroInput = document.querySelector(".start-pomodoro");
+	autoBreaksInput = document.querySelector(".start-breaks");
+	longBreakInterval = document.querySelector(".long-break-interval-input");
+	focusedTimeDisplay = document.querySelector(".display-hours");
 
-	// addHandlerCloseSettingsModal() {
-	// 	function closeModal(event) {
-	// 		this.overlay.classList.add("hidden");
-	// 		this.settingsDiv.classList.add("hidden");
-	// 	}
-	// 	const handler = closeModal.bind({ settingsDiv: this.settingsDiv, overlay: this.overlay });
+	addHandlerSettingsModal(getSettings) {
+		this.settingsBtn.addEventListener("click", () => {
+			console.log(getSettings());
+			this.initSettingsValues(getSettings());
+			this.settingsDiv.classList.remove("hidden");
+			this.overlay.classList.remove("hidden");
+		});
+	}
 
-	// 	this.overlay.addEventListener("click", handler);
-	// 	this.closeBtn.addEventListener("click", handler);
-	// }
+	initSettingsValues({
+		pomodoroLengthSec,
+		shortBreakLengthSec,
+		longBreakLengthSec,
+		toggleStartBreaks,
+		toggleStartPomodoro,
+		longBreakInterval,
+	}) {
+		this.pomodoroInput.value = pomodoroLengthSec / 60;
+		this.shortBreakInput.value = shortBreakLengthSec / 60;
+		this.longBreakInput.value = longBreakLengthSec / 60;
+		this.autoBreaksInput.checked = toggleStartBreaks;
+		this.autoPomodoroInput.checked = toggleStartPomodoro;
+		this.longBreakInterval.value = longBreakInterval;
+	}
 
 	addHandlerSettingsForm(controlSettings) {
 		function abstractedHandler(event) {

@@ -15,6 +15,22 @@
 	z-index: 10;
 }
 
+img.color-picker-img {
+	height: 1.6rem;
+	width: 1.6rem;
+	display: inline;
+	opacity: 0.3;
+}
+h2.theme-title {
+	display: inline;
+	margin-left: 0.3rem;
+	color: rgb(77, 77, 77);
+}
+
+h3.color-theme-title {
+	font-size: 1.6rem;
+}
+
 div.color-themes-container {
 	display: flex;
 	justify-content: space-between;
@@ -28,14 +44,25 @@ div.squares {
 }
 
 h3.color-theme-title {
-	margin-right: 45%;
+	margin-right: 40%;
 }
 
 div.square {
 	height: 2.7rem;
 	width: 2.7rem;
-	background-color: red;
 	border-radius: 0.4rem;
+}
+
+div.pomodoro-square {
+	background-color: rgb(186, 73, 73);
+}
+
+div.short-break-square {
+	background-color: rgb(56, 133, 138);
+}
+
+div.long-break-square {
+	background-color: rgb(57, 112, 151);
 }
 
 h3.time-minutes {

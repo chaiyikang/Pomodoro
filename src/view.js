@@ -1,4 +1,3 @@
-import helper from "./modelToViewHelper.js";
 import { activeInterval } from "./controller.js";
 class TimerView {
 	settingsBtn = document.querySelector(".open-settings");
@@ -18,25 +17,10 @@ class TimerView {
 	focusedTimeDisplay = document.querySelector(".display-hours");
 
 	// event handlers
-	addHandlerSettingsModal(handler) {
-		function settingsHandler(event) {
-			helper.initSettingsValues();
-			this._settingsDiv.classList.remove("hidden");
-			this._overlay.classList.remove("hidden");
-		}
 
-		this.settingsBtn.addEventListener(
-			"click",
-			settingsHandler.bind({
-				_settingsDiv: this.settingsDiv,
-				_overlay: this.overlay,
-			})
-		);
-	}
-
-	addHandlerReportModal() {
+	addHandlerReportModal(getFocusedSeconds) {
 		this.reportBtn.addEventListener("click", () => {
-			this.focusedTimeDisplay.textContent = helper.getFocusedSeconds();
+			this.focusedTimeDisplay.textContent = getFocusedSeconds();
 			this.reportDiv.classList.remove("hidden");
 			this.overlay.classList.remove("hidden");
 		});
@@ -89,6 +73,7 @@ class TimerView {
 	}
 
 	// utility methods
+
 	updateIntervalDisplay(cycles, reps) {
 		this.intervalDisplay.textContent = `Cycle: #${cycles} Rep: #${reps}`;
 	}
