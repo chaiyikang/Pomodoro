@@ -11,10 +11,12 @@ class SettingsView {
 	autoBreaksInput = document.querySelector(".start-breaks");
 	longBreakInterval = document.querySelector(".long-break-interval-input");
 	focusedTimeDisplay = document.querySelector(".display-hours");
+	pomodoroSquare = document.querySelector(".pomodoro-square");
+	shortBreakSquare = document.querySelector(".short-break-square");
+	longBreakSquare = document.querySelector(".long-break-square");
 
 	addHandlerSettingsModal(getSettings) {
 		this.settingsBtn.addEventListener("click", () => {
-			console.log(getSettings());
 			this.initSettingsValues(getSettings());
 			this.settingsDiv.classList.remove("hidden");
 			this.overlay.classList.remove("hidden");
@@ -28,6 +30,9 @@ class SettingsView {
 		toggleStartBreaks,
 		toggleStartPomodoro,
 		longBreakInterval,
+		pomodoroColor,
+		shortBreakColor,
+		longBreakColor,
 	}) {
 		this.pomodoroInput.value = pomodoroLengthSec / 60;
 		this.shortBreakInput.value = shortBreakLengthSec / 60;
@@ -35,6 +40,9 @@ class SettingsView {
 		this.autoBreaksInput.checked = toggleStartBreaks;
 		this.autoPomodoroInput.checked = toggleStartPomodoro;
 		this.longBreakInterval.value = longBreakInterval;
+		this.pomodoroSquare.style.backgroundColor = pomodoroColor;
+		this.shortBreakSquare.style.backgroundColor = shortBreakColor;
+		this.longBreakSquare.style.backgroundColor = longBreakColor;
 	}
 
 	addHandlerSettingsForm(controlSettings) {

@@ -1,6 +1,7 @@
-import TimerView from "./view.js";
+import TimerView from "./views/view.js";
 import * as model from "./model.js";
-import settingsView from "./settingsView.js";
+import settingsView from "./views/settingsView.js";
+import colorsView from "./views/colorsView.js";
 
 export let activeInterval;
 
@@ -51,7 +52,7 @@ function controlPomodoro(type) {
 	TimerView.changeButtonStart();
 	TimerView.updateSkipBtn();
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
-	TimerView.updateBackgroundColor(type);
+	TimerView.updateBackgroundColor(type, getSettings);
 	TimerView.updateMessage(type);
 	TimerView.updateIntervalDisplay(...determineDisplayCycleRep());
 }
@@ -83,6 +84,8 @@ function controlSettings(formData) {
 	}
 }
 
+function controlUpdateColorSettings(type, color) {}
+
 function init() {
 	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
 	TimerView.addHandlerStartStop(controlStartStop);
@@ -93,6 +96,9 @@ function init() {
 	TimerView.addHandlerCloseReport();
 	controlPomodoro("pomodoro");
 	settingsView.addHandlerSettingsForm(controlSettings);
+	colorsView.addHandlerOpenColorPickerModal(getSettings);
+	colorsView.addHandlerSubmitColor();
+	colorsView.addHandlerCloseColorPickerModalWithOverlay();
 }
 
 init();

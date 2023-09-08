@@ -1,4 +1,4 @@
-import { activeInterval } from "./controller.js";
+import { activeInterval } from "../controller.js";
 class TimerView {
 	settingsBtn = document.querySelector(".open-settings");
 	settingsDiv = document.querySelector(".settings");
@@ -90,16 +90,18 @@ class TimerView {
 		this.messageEle.textContent = type === "pomodoro" ? "Time to Focus!" : "Time for a break!";
 	}
 
-	updateBackgroundColor(type) {
+	updateBackgroundColor(type, getSettings) {
+		const { pomodoroColor, shortBreakColor, longBreakColor } = getSettings();
+
 		if (type === "pomodoro") {
-			document.body.style.backgroundColor = "rgb(186, 73, 73)";
-			this.startStopButton.style.color = "rgb(186, 73, 73)";
+			document.body.style.backgroundColor = pomodoroColor;
+			this.startStopButton.style.color = pomodoroColor;
 		} else if (type === "shortBreak") {
-			document.body.style.backgroundColor = "rgb(56, 133, 138)";
-			this.startStopButton.style.color = "rgb(56, 133, 138)";
+			document.body.style.backgroundColor = shortBreakColor;
+			this.startStopButton.style.color = shortBreakColor;
 		} else {
-			document.body.style.backgroundColor = "rgb(57, 112, 151)";
-			this.startStopButton.style.color = "rgb(57, 112, 151)";
+			document.body.style.backgroundColor = longBreakColor;
+			this.startStopButton.style.color = longBreakColor;
 		}
 	}
 

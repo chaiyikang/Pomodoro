@@ -1,4 +1,8 @@
 export const state = {
+	pomodoroColor: "rgb(186, 73, 73)",
+	shortBreakColor: "rgb(56, 133, 138)",
+	longBreakColor: "rgb(57, 112, 151)",
+
 	secondsFocused: 0,
 	durationLeftSec: 0.1 * 60,
 

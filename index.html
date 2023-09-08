@@ -10,9 +10,25 @@
 		<link rel="stylesheet" href="styles/settings.css" />
 		<link rel="stylesheet" href="styles/report.css" />
 		<link rel="stylesheet" href="styles/toggle.css" />
+		<link rel="stylesheet" href="styles/color-picker.css" />
 		<script type="module" src="src/controller.js"></script>
 	</head>
 	<body>
+		<div class="color-picker-modal hidden">
+			<h3 class="color-picker-title">
+				Pick a color for Pomodoro
+			</h3>
+			<div class="choose-color-squares">
+				<div class="choose-color-1 choose-color-square active"></div>
+				<div class="choose-color-2 choose-color-square"></div>
+				<div class="choose-color-3 choose-color-square"></div>
+				<div class="choose-color-4 choose-color-square"></div>
+				<div class="choose-color-5 choose-color-square"></div>
+				<div class="choose-color-6 choose-color-square"></div>
+				<div class="choose-color-7 choose-color-square"></div>
+				<div class="choose-color-8 choose-color-square"></div>
+			</div>
+		</div>
 		<div class="report hidden">
 			<header class="report-header">
 				<h2 class="activity-summary-title">Activity Summary</h2>
@@ -119,9 +135,9 @@
 					<div class="color-themes-container">
 						<h3 class="color-theme-title">Color Themes</h3>
 						<div class="squares">
-							<div class="square pomodoro-square"></div>
-							<div class="square short-break-square"></div>
-							<div class="square long-break-square"></div>
+							<div class="square pomodoro-square" data-interval-type="pomodoro"></div>
+							<div class="square short-break-square" data-interval-type="shortBreak"></div>
+							<div class="square long-break-square" data-interval-type="longBreak"></div>
 						</div>
 					</div>
 				
