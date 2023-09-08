@@ -14,15 +14,18 @@ class ColorsView {
 
 			const settings = getSettings();
 			this.selectColorSquare.forEach((color) => {
-				console.log("color:", color);
-				if (color.style.backgroundColor === settings[`${selectedType}Color`]) {
+				const currentColor = window
+					.getComputedStyle(color)
+					.getPropertyValue("background-color");
+
+				if (currentColor === settings[`${selectedType}Color`]) {
 					color.classList.add("active");
 				} else {
 					color.classList.remove("active");
 				}
 			});
 
-			this.colorPickerTitle.textContent = displayType;
+			this.colorPickerTitle.textContent = "Choose Color For " + displayType;
 			this.settingsDiv.classList.add("hidden");
 			this.colorPickerModal.classList.remove("hidden");
 		};
