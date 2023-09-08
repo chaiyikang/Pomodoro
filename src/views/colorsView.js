@@ -1,3 +1,5 @@
+import helper from "../helpers";
+
 class ColorsView {
 	openColorSquares = Array.from(document.querySelectorAll(".square"));
 	selectColorSquare = Array.from(document.querySelectorAll(".choose-color-square"));
@@ -12,8 +14,7 @@ class ColorsView {
 	addHandlerOpenColorPickerModal(getSettings) {
 		const handler = (square) => {
 			const selectedType = square.dataset.intervalType;
-			const spacedString = selectedType.replace(/([A-Z])/g, " $1");
-			const displayType = spacedString.charAt(0).toUpperCase() + spacedString.slice(1);
+			const displayType = helper.formatIntervalString(selectedType);
 
 			const settings = getSettings();
 			this.selectColorSquare.forEach((color) => {

@@ -116,7 +116,7 @@ class TimerView {
 
 	updateTimeDisplay(sec) {
 		let displayMin = Math.floor(sec / 60);
-		let displaySec = sec % 60;
+		let displaySec = Math.round(sec % 60);
 		this.timeDisplay.innerHTML =
 			`${displayMin}:`.padStart(3, "0") + `${displaySec}`.padStart(2, "0");
 	}

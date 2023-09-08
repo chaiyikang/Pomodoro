@@ -3,6 +3,8 @@ import * as model from "./model.js";
 import settingsView from "./views/settingsView.js";
 import colorsView from "./views/colorsView.js";
 import audio from "./audio.js";
+import notifications from "./notifications.js";
+import helper from "./helpers.js";
 
 export let activeInterval;
 intervalEndedAudio = document.querySelector(".interval-ended-audio");
@@ -35,6 +37,14 @@ function controlTimerEnded() {
 	audio.playIntervalEnded();
 	clearIntervalSetFalse();
 	model.state.updateCycleTracker();
+	const notificationMessage =
+		model.state.nextType === "pomodoro"
+			? `Time to work!`
+			: `Time to take a ${helper.formatIntervalString(model.state.nextType)}!`;
+	new Notification("Pomofocus", {
+		body: notificationMessage,
+	});
+	// after controlPomodoro is caled, active type is mutated, hence nextType is mutated.
 	controlPomodoro(model.state.nextType);
 
 	const autoPomodoro =
@@ -92,6 +102,7 @@ function controlUpdateColorSettings(type, color) {
 }
 
 function init() {
+	notifications.checkPermission();
 	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
@@ -122,6 +133,9 @@ function clearIntervalSetFalse() {
 function countDown(timeStampEnd) {
 	let timeStampCurrent = new Date().getTime();
 	let timeLeftSec = Math.round((timeStampEnd - timeStampCurrent) / 1000);
+	if (timeLeftSec === 5 * 60 && Notification.permission === "granted") {
+		new Notification("Pomofocus", { body: "5 minutes left!" });
+	}
 
 	model.state.durationLeftSec = timeLeftSec;
 	model.state.secondsFocused++;
