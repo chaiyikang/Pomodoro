@@ -5,6 +5,9 @@ class ColorsView {
 	settingsDiv = document.querySelector(".settings");
 	colorPickerTitle = document.querySelector(".color-picker-title");
 	overlay = document.querySelector(".overlay");
+	pomodoroSquare = document.querySelector(".pomodoro-square");
+	shortBreakSquare = document.querySelector(".short-break-square");
+	longBreakSquare = document.querySelector(".long-break-square");
 
 	addHandlerOpenColorPickerModal(getSettings) {
 		const handler = (square) => {
@@ -26,6 +29,7 @@ class ColorsView {
 			});
 
 			this.colorPickerTitle.textContent = "Choose Color For " + displayType;
+			this.colorPickerTitle.dataset.type = selectedType;
 			this.settingsDiv.classList.add("hidden");
 			this.colorPickerModal.classList.remove("hidden");
 		};
@@ -45,13 +49,34 @@ class ColorsView {
 		});
 	}
 
-	addHandlerSubmitColor(handler) {
-		this.selectColorSquare.forEach((color) =>
+	addHandlerSubmitColor(handlerUpdateState, getSettings) {
+		const handler = (selectedColor) => {
+			const currType = this.colorPickerTitle.dataset.type;
+			const invalidData =
+				!CSS.supports("color", selectedColor) ||
+				!["pomodoro", "shortBreak", "longBreak"].includes(currType);
+			if (invalidData) return;
+
+			handlerUpdateState(this.colorPickerTitle.dataset.type, selectedColor);
+
+			// re-initialise active color settings in view
+			const { pomodoroColor, shortBreakColor, longBreakColor } = getSettings();
+			this.pomodoroSquare.style.backgroundColor = pomodoroColor;
+			this.shortBreakSquare.style.backgroundColor = shortBreakColor;
+			this.longBreakSquare.style.backgroundColor = longBreakColor;
+
+			this.colorPickerModal.classList.add("hidden");
+			this.settingsDiv.classList.remove("hidden");
+		};
+		this.selectColorSquare.forEach((color) => {
+			const selectedColor = window
+				.getComputedStyle(color)
+				.getPropertyValue("background-color");
+
 			color.addEventListener("click", () => {
-				this.colorPickerModal.classList.add("hidden");
-				this.settingsDiv.classList.remove("hidden");
-			})
-		);
+				handler(selectedColor);
+			});
+		});
 	}
 }
 

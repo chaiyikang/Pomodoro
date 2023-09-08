@@ -84,7 +84,9 @@ function controlSettings(formData) {
 	}
 }
 
-function controlUpdateColorSettings(type, color) {}
+function controlUpdateColorSettings(type, color) {
+	model.state[`${type}Color`] = color;
+}
 
 function init() {
 	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
@@ -97,7 +99,7 @@ function init() {
 	controlPomodoro("pomodoro");
 	settingsView.addHandlerSettingsForm(controlSettings);
 	colorsView.addHandlerOpenColorPickerModal(getSettings);
-	colorsView.addHandlerSubmitColor();
+	colorsView.addHandlerSubmitColor(controlUpdateColorSettings, getSettings);
 	colorsView.addHandlerCloseColorPickerModalWithOverlay();
 }
 
