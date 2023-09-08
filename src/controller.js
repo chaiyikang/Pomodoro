@@ -2,8 +2,10 @@ import TimerView from "./views/view.js";
 import * as model from "./model.js";
 import settingsView from "./views/settingsView.js";
 import colorsView from "./views/colorsView.js";
+import audio from "./audio.js";
 
 export let activeInterval;
+intervalEndedAudio = document.querySelector(".interval-ended-audio");
 
 // if (module.hot) {
 // 	module.hot.accept();
@@ -30,6 +32,7 @@ function controlStartStop(trueForStart) {
 }
 
 function controlTimerEnded() {
+	audio.playIntervalEnded();
 	clearIntervalSetFalse();
 	model.state.updateCycleTracker();
 	controlPomodoro(model.state.nextType);
@@ -101,6 +104,7 @@ function init() {
 	colorsView.addHandlerOpenColorPickerModal(getSettings);
 	colorsView.addHandlerSubmitColor(controlUpdateColorSettings, getSettings);
 	colorsView.addHandlerCloseColorPickerModalWithOverlay();
+	audio.addHandlerAudio();
 }
 
 init();

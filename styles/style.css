@@ -99,8 +99,11 @@ div.app-info {
 
 p.counter {
 	font-size: 1.8rem;
+	opacity: 0.6;
+	/* font-weight: bold; */
 }
 
 p.message {
-	font-size: 1.6rem;
+	font-size: 1.8rem;
+	font-weight: bold;
 }

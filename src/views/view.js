@@ -41,6 +41,7 @@ class TimerView {
 
 	addHandlerStartStop(handler) {
 		this.startStopButton.addEventListener("click", (event) => {
+			console.log(event);
 			// arrow function keeps this referring to object instead of element
 			this.handlerStartStop(handler);
 		});
