@@ -17,10 +17,13 @@ function controlStartStop(trueForStart) {
 	if (!trueForStart) {
 		//stop
 		clearIntervalSetFalse();
+		model.updateLocalStorage();
 		return;
 	}
 
 	//start
+	model.state.timerRunning = true;
+	model.updateLocalStorage();
 	const timeStampStart = new Date().getTime();
 	const timeStampEnd = timeStampStart + model.state.durationLeftSec * 1000;
 
@@ -70,6 +73,23 @@ function controlPomodoro(type) {
 	TimerView.updateIntervalDisplay(...determineDisplayCycleRep());
 }
 
+function initPomodoro(type) {
+	TimerView.updateActiveButton(model.state.cycleTracker.activeType);
+	// TimerView.changeButtonStart();
+	// TimerView.updateSkipBtn();
+	TimerView.updateTimeDisplay(model.state.durationLeftSec);
+	TimerView.updateBackgroundColor(type, getSettings);
+	TimerView.updateMessage(type);
+	TimerView.updateIntervalDisplay(...determineDisplayCycleRep());
+
+	if (!model.state.timerRunning) {
+		TimerView.changeButtonStart();
+		return;
+	}
+
+	TimerView.clickStartStop();
+}
+
 function controlSettings(formData) {
 	const timeElapsed = model.state.elapsed;
 	const noRunningNoPausedTimer =
@@ -77,40 +97,39 @@ function controlSettings(formData) {
 
 	model.updateSettings(formData);
 
+	const noRunningPausedTimer = !activeInterval;
+
 	if (noRunningNoPausedTimer) {
 		controlPomodoro(model.state.cycleTracker.activeType);
-		return;
-	}
-
-	const noRunningPausedTimer = !activeInterval;
-	if (noRunningPausedTimer) {
+	} else if (noRunningPausedTimer) {
 		model.state.durationLeftSec = model.state.activeLength - timeElapsed;
 		TimerView.updateTimeDisplay(model.state.durationLeftSec);
-		return;
-	}
-
-	if (activeInterval) {
+	} else if (activeInterval) {
 		model.state.durationLeftSec = model.state.activeLength - timeElapsed;
 		controlStartStop(false);
 		controlStartStop(true);
-		return;
 	}
+
+	model.updateLocalStorage();
 }
 
 function controlUpdateColorSettings(type, color) {
 	model.state[`${type}Color`] = color;
+	model.updateLocalStorage();
 }
 
 function init() {
 	notifications.checkPermission();
-	TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
+	// TimerView.updateTimeDisplay(model.state.pomodoroLengthSec);
 	TimerView.addHandlerStartStop(controlStartStop);
 	TimerView.addHandlerTypes(controlPomodoro);
 	TimerView.addHandlerSkip(controlTimerEnded);
 	settingsView.addHandlerSettingsModal(getSettings);
 	TimerView.addHandlerReportModal(() => model.state.secondsFocused);
 	TimerView.addHandlerCloseReport();
-	controlPomodoro("pomodoro");
+
+	initPomodoro(model.state.cycleTracker.activeType);
+
 	settingsView.addHandlerSettingsForm(controlSettings);
 	colorsView.addHandlerOpenColorPickerModal(getSettings);
 	colorsView.addHandlerSubmitColor(controlUpdateColorSettings, getSettings);
@@ -128,6 +147,8 @@ function getSettings() {
 function clearIntervalSetFalse() {
 	clearInterval(activeInterval);
 	activeInterval = false;
+	model.state.timerRunning = false;
+	model.updateLocalStorage();
 }
 
 function countDown(timeStampEnd) {
@@ -139,6 +160,7 @@ function countDown(timeStampEnd) {
 
 	model.state.durationLeftSec = timeLeftSec;
 	model.state.secondsFocused++;
+	model.updateLocalStorage();
 
 	TimerView.updateTimeDisplay(model.state.durationLeftSec);
 }

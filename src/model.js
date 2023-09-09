@@ -4,15 +4,17 @@ export const state = {
 	longBreakColor: "rgb(57, 112, 151)",
 
 	secondsFocused: 0,
-	durationLeftSec: 0.1 * 60,
+	durationLeftSec: 0.3 * 60,
 
-	pomodoroLengthSec: 0.1 * 60,
+	pomodoroLengthSec: 0.3 * 60,
 	shortBreakLengthSec: 0.1 * 60,
 	longBreakLengthSec: 0.1 * 60,
 
 	toggleStartBreaks: false,
 	toggleStartPomodoro: false,
 	longBreakInterval: 4,
+
+	timerRunning: false,
 
 	cycleTracker: {
 		activeType: "pomodoro",
@@ -24,6 +26,7 @@ export const state = {
 	},
 
 	get currentRepToDo() {
+		console.log(`totalRepsDone: ${this.cycleTracker.totalRepsDone}`);
 		const currRep = (this.cycleTracker.totalRepsDone + 1) % this.longBreakInterval;
 		return currRep === 0 ? this.longBreakInterval : currRep;
 	},
@@ -59,6 +62,7 @@ export const state = {
 	updateActiveTypeResetDurationLeft(type) {
 		this.cycleTracker.activeType = type;
 		this.durationLeftSec = this.activeLength;
+		updateLocalStorage();
 	},
 };
 
@@ -79,8 +83,29 @@ export function updateSettings({
 	state.longBreakInterval = +longBreakInterval;
 }
 
+export function updateLocalStorage() {
+	const {
+		completedSets,
+		currentRepToDo,
+		updateCycleTracker,
+		nextType,
+		activeLength,
+		elapsed,
+		...stateData
+	} = state;
+	console.log("stateData:");
+	console.dir(stateData);
+	localStorage.setItem("state", JSON.stringify(stateData));
+}
+
 function init() {
-	state.updateActiveTypeResetDurationLeft("pomodoro");
+	// state.updateActiveTypeResetDurationLeft("pomodoro");
+	const updatedState = JSON.parse(localStorage.getItem("state"));
+	if (updatedState) {
+		Object.defineProperties(state, Object.getOwnPropertyDescriptors(updatedState));
+	}
+	console.log("updated state");
+	console.dir(state);
 }
 
 init();
